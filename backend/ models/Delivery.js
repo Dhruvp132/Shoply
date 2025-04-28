@@ -31,6 +31,10 @@ const deliverySchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  deliveryAddress : {
+    type: Object,
+    required: true,
+  }
 });
 
 const Delivery = mongoose.model("Delivery", deliverySchema);
