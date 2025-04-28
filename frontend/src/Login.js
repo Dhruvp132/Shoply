@@ -70,7 +70,7 @@ function Login() {
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
 
-                <button onClick={register} className='login__registerButton'>Create your Amazon Account</button>
+                <button onClick={() => {history.push("/signup")}} className='login__registerButton'>Create your Amazon Account</button>
             </div>
         </div>
     );

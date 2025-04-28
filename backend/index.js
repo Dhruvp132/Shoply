@@ -80,6 +80,8 @@ const syncUsersToMongoDB = async () => {
         await User.create({
           uid: firestoreUser.uid,
           email: firestoreUser.email,
+          name: firestoreUser.name || "",
+          phone: firestoreUser.phone || "",
           createdAt, // Use the converted date
         });
         console.log(`Added user to MongoDB: ${firestoreUser.email}`);

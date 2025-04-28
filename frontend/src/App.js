@@ -19,6 +19,7 @@ import CartDetails from "./components/CartDetails";
 import CollabCart from "./Collab/CollabCart";
 import AdminAuth from "./Admin/AdminAuth";
 import DeliveryAuth from "./Delivery/DeliveryAuth";
+import Signup from "./Signup";
 
 const promise = loadStripe(
   "pk_test_51R1R5HJlvCjqT1EtEInaYXkY3L2n7M2zXbE8FiO2EUZwMOqT7k3fJM0LOag5r7OIaX1XI7dQ4zsYd7lT4LRqenoA00q51mtuvJ"
@@ -75,6 +76,9 @@ function App() {
           <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/payment-success" render={(props) => (
             props.location.state && props.location.state.paymentSuccess ? (
