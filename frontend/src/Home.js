@@ -93,17 +93,34 @@ function Home() {
             const randomCategory = categories[Math.floor(Math.random() * categories.length)];
             product.category = randomCategory.name;
             product.subcategory = randomCategory.subcategories[Math.floor(Math.random() * randomCategory.subcategories.length)];
+          } else if (!product.subcategory) {
+            // Ensure all products have a subcategory
+            const categoryObj = categories.find(cat => 
+              cat.name.toLowerCase() === product.category.toLowerCase()
+            );
+            if (categoryObj) {
+              product.subcategory = categoryObj.subcategories[Math.floor(Math.random() * categoryObj.subcategories.length)];
+            } else {
+              // If category doesn't match our predefined categories, assign a random one
+              const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+              product.subcategory = randomCategory.subcategories[Math.floor(Math.random() * randomCategory.subcategories.length)];
+            }
           }
           return product;
         });
         
+        // Log the first few products to verify subcategories are set
+        console.log("Sample products with subcategories:", combinedProducts.slice(0, 5));
+        
         setFetchedProducts(combinedProducts);
+        setFilteredProducts(combinedProducts); // Initialize with all products
         setIsLoading(false);
       } catch (err) {
         console.error("Error fetching products:", err);
         // If API fails, use sample data
         const sampleProducts = hardcodedProducts;
         setFetchedProducts(sampleProducts);
+        setFilteredProducts(sampleProducts); // Initialize with sample products
         setIsLoading(false);
       }
     };
@@ -131,7 +148,14 @@ function Home() {
 
   // Filtering and sorting logic
   useEffect(() => {
-    let filtered = fetchedProducts;
+    let filtered = [...fetchedProducts]; // Create a copy to avoid mutating the original
+
+    console.log("Filtering with:", {
+      searchKeyword,
+      selectedCategory,
+      selectedSubcategory,
+      selectedGender
+    });
 
     if (searchKeyword) {
       filtered = filtered.filter(
@@ -148,6 +172,8 @@ function Home() {
           product.category &&
           product.category.toLowerCase() === selectedCategory.toLowerCase()
       );
+      
+      console.log(`After category filter (${selectedCategory}):`, filtered.length);
     }
 
     if (selectedSubcategory) {
@@ -156,6 +182,18 @@ function Home() {
           product.subcategory &&
           product.subcategory.toLowerCase() === selectedSubcategory.toLowerCase()
       );
+      
+      console.log(`After subcategory filter (${selectedSubcategory}):`, filtered.length);
+      
+      // If no products match, log the available subcategories for debugging
+      if (filtered.length === 0) {
+        const availableSubcategories = [...new Set(
+          fetchedProducts
+            .filter(p => p.category && p.category.toLowerCase() === selectedCategory.toLowerCase())
+            .map(p => p.subcategory)
+        )];
+        console.log("Available subcategories:", availableSubcategories);
+      }
     }
 
     if (selectedGender) {
@@ -198,6 +236,7 @@ function Home() {
 
   // Handle subcategory change
   const handleSubcategoryChange = (subcategory) => {
+    console.log("Subcategory selected:", subcategory);
     setSelectedSubcategory(subcategory);
     
     // Close sidebar on mobile after selection
@@ -226,7 +265,7 @@ function Home() {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // Sample hardcoded products
+  // Sample hardcoded products with subcategories
   const hardcodedProducts = [
     {
       id: "12321341",
@@ -366,10 +405,12 @@ function Home() {
             </button>
           )}
 
-          {/* Main Carousel */}
-          <Carousel slides={carouselSlides} />
+          {/* Main Carousel - Only show on homepage */}
+          {!searchKeyword && !selectedCategory && !selectedSubcategory && !selectedGender && (
+            <Carousel slides={carouselSlides} />
+          )}
 
-          {/* Featured Products Grid */}
+          {/* Featured Products Grid - Only show on homepage */}
           {!isLoading && !searchKeyword && !selectedCategory && !selectedSubcategory && !selectedGender && (
             <div style={{ marginBottom: '30px' }}>
               {/* Featured Products */}
@@ -402,8 +443,8 @@ function Home() {
             </div>
           )}
 
-          {/* Category Browsing - Show when a category is selected */}
-          {selectedCategory && (
+          {/* Category/Subcategory Browsing - Show when a category or subcategory is selected */}
+          {(selectedCategory || selectedSubcategory || selectedGender) && (
             <div style={{
               backgroundColor: 'white',
               borderRadius: '8px',
@@ -423,7 +464,9 @@ function Home() {
                   margin: 0,
                   color: '#232f3e'
                 }}>
-                  {selectedCategory} {selectedSubcategory ? `> ${selectedSubcategory}` : ''}
+                  {selectedCategory} 
+                  {selectedSubcategory ? ` > ${selectedSubcategory}` : ''} 
+                  {selectedGender ? ` | ${selectedGender}` : ''}
                 </h1>
                 
                 <select 
@@ -444,7 +487,7 @@ function Home() {
                 </select>
               </div>
               
-              {/* Subcategory Pills */}
+              {/* Subcategory Pills - Only show when a category is selected */}
               {selectedCategory && (
                 <div style={{
                   display: 'flex',
