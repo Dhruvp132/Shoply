@@ -15,19 +15,19 @@ function CollapsibleSidebar({
 
   return (
     <div style={{
-      width: isOpen ? '240px' : '0',
+      width: isOpen ? '280px' : '0',
       transition: 'width 0.3s ease-in-out',
       overflow: 'hidden',
       backgroundColor: 'white',
       borderRight: '1px solid #ddd',
       position: 'sticky',
-      top: '60px',
+      top: '100px',
       height: 'calc(100vh - 60px)',
       zIndex: 100,
       boxShadow: isOpen ? '2px 0 5px rgba(0,0,0,0.1)' : 'none'
     }}>
       <div style={{
-        width: '240px', // Fixed content width
+        width: '260px', // Fixed content width
         padding: '20px',
         overflowY: 'auto',
         height: '100%'

@@ -91,7 +91,7 @@ function Carousel({ slides }) {
               <h2 style={{
                 margin: '0 0 10px 0',
                 fontSize: '24px',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
               }}>{slide.title}</h2>
               <p style={{
                 margin: 0,

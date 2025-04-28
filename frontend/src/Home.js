@@ -341,7 +341,6 @@ function Home() {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      maxWidth: '1500px',
       margin: '0 auto',
       backgroundColor: '#EAEDED'
     }}>
@@ -374,7 +373,7 @@ function Home() {
         {/* Main Content */}
         <div style={{
           flex: '1',
-          padding: '15px',
+          
           transition: 'margin-left 0.3s ease-in-out',
           marginLeft: sidebarOpen && window.innerWidth > 768 ? '0' : '0'
         }}>
@@ -536,7 +535,9 @@ function Home() {
               <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                margin: '0 -10px'
+                margin: '0 -10px',
+                justifyContent: 'space-between',
+                width: '95%'
               }}>
                 {filteredProducts.length === 0 ? (
                   <div style={{
