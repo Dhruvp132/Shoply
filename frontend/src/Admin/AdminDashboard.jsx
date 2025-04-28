@@ -6,7 +6,7 @@ import "./AdminDashboard.css"; // Importing CSS for styling and animations
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [form, setForm] = useState({ title: "", price: "", image: "" });
+  const [form, setForm] = useState({ title: "", price: "", image: "",category: "", subCategory: "" });
   const [editMode, setEditMode] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
 
@@ -126,6 +126,22 @@ const AdminDashboard = () => {
           name="image"
           value={form.image}
           placeholder="Product Image URL"
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="category"
+          value={form.category}
+          placeholder="Product Category"
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="subCategory"
+          value={form.subCategory}
+          placeholder="Product subCategory"
           onChange={handleInputChange}
           required
         />

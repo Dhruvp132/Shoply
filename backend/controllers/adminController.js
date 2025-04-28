@@ -58,29 +58,50 @@ router.get("/products" , async(req, res) => {
   }
 })
 
-
-
 router.post("/addproduct", async (req, res) => {
   try {
-    const { title, price, image } = req.body;
-    if (!title) {
-      return res.status(400).json({ msg: "title field not found" });
+    console.log(req.body,'This is body')
+    const productMap = req.body;
+    
+    // Validate all products first
+    for (const product of productMap) {
+      const { title, price, image, category, subCategory } = product;
+      if (!title) {
+        return res.status(400).json({ msg: "title field not found" });
+      }
+      if (!image) {
+        return res.status(400).json({ msg: "image link field not found " });
+      }
+      if (!price) {
+        return res.status(400).json({ msg: "Price field not found" });
+      }
+      if (!category) {
+        return res.status(400).json({ msg: "Category field not found" });
+      }
+      if (!subCategory) {
+        return res.status(400).json({ msg: "subCategory field not found" });
+      }
     }
-    if (!image) {
-      return res.status(400).json({ msg: "image link field not found " });
-    }
-    if (!price) {
-      return res.status(400).json({ msg: "Price field not found" });
-    }
-    const product = await Product.create({ title, image, price });
-    res.status(200).json({ product, msg: "Product created successfully.." });
+    
+    // Create all products
+    const createdProducts = await Promise.all(
+      productMap.map(product => {
+        const { title, price, image, category, subCategory } = product;
+        return Product.create({ title, image, price, category, subCategory });
+      })
+    );
+    
+    // Send a single response after all products are created
+    return res.status(200).json({ 
+      products: createdProducts, 
+      msg: "Products added successfully.." 
+    });
   }
   catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 });
-
 router.put("/updateProduct/:productId", async (req, res) => {
   try {
     const productId = req.params.productId;

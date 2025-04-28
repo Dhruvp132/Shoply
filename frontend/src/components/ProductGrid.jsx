@@ -32,7 +32,9 @@ function ProductGrid({ title, products, columns = 4 }) {
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
-        margin: '0 -10px'
+        margin: '0 -10px',
+        justifyContent: 'space-between',
+        width: '95%',
       }}>
         {products.map((product) => (
           <div 
