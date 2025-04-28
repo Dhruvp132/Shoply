@@ -6,15 +6,9 @@ import ProductDialog from "../components/ProductDialog.jsx";
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-<<<<<<< Updated upstream
-  const [form, setForm] = useState({ title: "", price: "", image: "",category: "", subCategory: "" });
-  const [editMode, setEditMode] = useState(false);
-  const [editProductId, setEditProductId] = useState(null);
-=======
   const [activeTab, setActiveTab] = useState("products");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
->>>>>>> Stashed changes
 
   // Fetch products and users on mount
   useEffect(() => {
@@ -224,73 +218,6 @@ const AdminDashboard = () => {
   };
 
   return (
-<<<<<<< Updated upstream
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-
-      {/* Form for adding/editing product */}
-      <form onSubmit={handleSubmit} className="product-form">
-        <input
-          type="text"
-          name="title"
-          value={form.title}
-          placeholder="Product Title"
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          value={form.price}
-          placeholder="Product Price"
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="image"
-          value={form.image}
-          placeholder="Product Image URL"
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="category"
-          value={form.category}
-          placeholder="Product Category"
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="subCategory"
-          value={form.subCategory}
-          placeholder="Product subCategory"
-          onChange={handleInputChange}
-          required
-        />
-        <button type="submit">{editMode ? "Update Product" : "Add Product"}</button>
-      </form>
-
-      {/* Product List */}
-      <div className="product-list">
-        {products.map((product) => (
-          <div key={product._id} className="product-card">
-            <img src={product.image} alt={product.title} className="product-image" />
-            <h3>{product.title}</h3>
-            <p>${product.price}</p>
-            <div className="product-buttons">
-              <button onClick={() => handleEdit(product)} className="edit-btn">
-                Edit
-              </button>
-              <button onClick={() => handleDelete(product._id)} className="delete-btn">
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-=======
     <div style={dashboardStyles}>
       <div style={headerStyles}>
         <h1 style={titleStyles}>Admin Dashboard</h1>
@@ -299,7 +226,7 @@ const AdminDashboard = () => {
             Add Product
           </button>
         )}
->>>>>>> Stashed changes
+
       </div>
 
       <div style={toggleContainerStyles}>
