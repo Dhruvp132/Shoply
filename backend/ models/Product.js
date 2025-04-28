@@ -19,6 +19,14 @@ const productSchema = new mongoose.Schema({
     default: 0,
     required : false,
   },
+  category: {
+    type : String,
+    required : true,
+  },
+  subCategory: {
+    type : String,
+    required : true,
+  },
 }, {
   timestamps: true
 });
