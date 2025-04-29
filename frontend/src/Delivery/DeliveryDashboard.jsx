@@ -14,7 +14,11 @@ function DeliveryDashboard() {
   useEffect(() => {
     const fetchDeliveries = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/delivery');
+        const response = await axios.get('http://localhost:5001/delivery', {
+          headers: {
+            Authorization: `${localStorage.getItem('deliveryToken')}`,
+          },
+        });
         setDeliveries(response.data.deliveries);
       } catch (error) {
         console.error('Error fetching deliveries:', error);
@@ -54,10 +58,18 @@ function DeliveryDashboard() {
     const deliveryData = updatedDeliveries[id];
     if (deliveryData) {
       try {
-        await axios.put('http://localhost:5001/delivery/update', {
-          deliveryId: id,
-          ...deliveryData,
-        });
+        await axios.put(
+          'http://localhost:5001/delivery/update',
+          {
+            deliveryId: id,
+            ...deliveryData,
+          },
+          {
+            headers: {
+              Authorization: `${localStorage.getItem('deliveryToken')}`,
+            },
+          }
+        );
         setUpdatedDeliveries((prev) => ({ ...prev, [id]: undefined }));
         // Optionally, refresh the deliveries list
         // fetchDeliveries();

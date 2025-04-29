@@ -13,7 +13,7 @@ const DeliveryAuth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
-        const endpoint = isSignIn ? "delivery/deliverysignin" : "delivery/deliverysignup";
+        const endpoint = isSignIn ? "delivery/login" : "delivery/signup";
         try {
             const res = await fetch(`${API_BASE}${endpoint}`, {
                 method: "POST",
@@ -22,6 +22,7 @@ const DeliveryAuth = () => {
             });
             const data = await res.json();
             if (res.status === 200) {
+                localStorage.setItem("deliveryToken", data.token);
                 history.replace('/delivery/dashboard');
                 setMessage(data.msg);
             }  else {

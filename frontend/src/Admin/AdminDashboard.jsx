@@ -67,12 +67,40 @@ const AdminDashboard = () => {
 
   const handleSaveProduct = async (productData) => {
     try {
+      const payload = {
+        ...productData,
+        price: Number(productData.price),
+        subCategory: productData.subCategory || productData.subcategory || "",
+      };
+      delete payload.subcategory; // Remove if present
+      console.log(payload);
       if (editProduct) {
-        await axios.put(`http://localhost:5001/admin/updateProduct/${editProduct._id}`, productData);
+        await axios.put(`http://localhost:5001/admin/updateProduct/${editProduct._id}`, payload, {
+          headers: {
+            Authorization: `${localStorage.getItem("adminToken")}`,
+          },
+        }).then(response => {
+          console.log(response.data);
+        });
         alert("Product updated successfully");
       } else {
-        await axios.post("http://localhost:5001/admin/addproduct", productData);
-        alert("Product added successfully");
+        const adminToken = localStorage.getItem("adminToken");
+        if (!adminToken) {
+          alert("Admin token is missing. Please log in again.");
+          return;
+        }
+        await axios.post("http://localhost:5001/admin/addproduct",
+          payload, {
+          headers: {
+            Authorization: `${localStorage.getItem("adminToken")}`,
+          },
+          
+        }).then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error.response.data);
+        });
       }
       fetchProducts();
       setIsDialogOpen(false);

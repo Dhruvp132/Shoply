@@ -13,7 +13,7 @@ const AdminAuth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
-        const endpoint = isSignIn ? "admin/adminsignin" : "admin/adminsignup";
+        const endpoint = isSignIn ? "admin/login" : "admin/signup";
         try {
             const res = await fetch(`${API_BASE}${endpoint}`, {
                 method: "POST",
@@ -22,6 +22,7 @@ const AdminAuth = () => {
             });
             const data = await res.json();
             if (res.status === 200) {
+                localStorage.setItem("adminToken", data.token);
                 history.replace('/admin/dashboard');
                 setMessage(data.msg);
             }  else {
