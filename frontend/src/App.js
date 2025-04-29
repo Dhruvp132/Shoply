@@ -51,64 +51,60 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Switch>
-          <Route path="/orders">
-            <Header />
-            <Orders />
-          </Route>
 
-          <Route path="/product/:id" component={ProductDetails} />
+<Switch>
+  <Route path="/orders">
+    <Header />
+    <Orders />
+  </Route>
 
-          <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
-          <Route path="/admin/login" component={AdminSignIn} />
-          <Route path="/admin/signup" component={AdminSignUp} />
-          {/* <Route path="/admin" component={AdminAu} /> */}
+  <Route path="/product/:id" component={ProductDetails} />
 
-          <DeliveryMiddleware
-            path="/delivery/dashboard"
-            component={DeliveryDashboard}
-          />
-          <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
-          <Route path="/delivery/signup" component={DeliverySignup} />
-          <Route path="/delivery/login" component={DeliverySignin} />
+  <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
+  <Route path="/admin/login" component={AdminSignIn} />
+  <Route path="/admin/signup" component={AdminSignUp} />
 
-          <Route
-            path="/payment-success"
-            render={(props) =>
-              props.location.state && props.location.state.paymentSuccess ? (
-                <PaymentSuccess />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
+  <DeliveryMiddleware path="/delivery/dashboard" component={DeliveryDashboard} />
+  <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
+  <Route path="/delivery/signup" component={DeliverySignup} />
+  <Route path="/delivery/login" component={DeliverySignin} />
 
-          <Route path="/checkout">
-            <Header />
-            <Checkout />
-          </Route>
-          <Route path="/payment">
-            <Header />
-            <Elements stripe={promise}>
-              <Payment />
-            </Elements>
-          </Route>
-          <Route path="/collab">
-            <Header />
-            <CollabCart />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/">
-            <Header />
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+  <Route
+    path="/payment-success"
+    render={(props) =>
+      props.location.state && props.location.state.paymentSuccess ? (
+        <PaymentSuccess />
+      ) : (
+        <Redirect to="/" />
+      )
+    }
+  />
+
+  <Route path="/checkout">
+    <Header />
+    <Checkout />
+  </Route>
+  <Route path="/payment">
+    <Header />
+    <Elements stripe={promise}>
+      <Payment />
+    </Elements>
+  </Route>
+  <Route path="/collab">
+    <Header />
+    <CollabCart />
+  </Route>
+  <Route path="/login">
+    <Login />
+  </Route>
+  <Route path="/signup">
+    <Signup />
+  </Route>
+  <Route path="/">
+    <Header />
+    <Home />
+  </Route>
+</Switch>      </div>
     </Router>
   );
 }
