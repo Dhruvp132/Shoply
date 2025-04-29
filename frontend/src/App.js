@@ -63,7 +63,7 @@ function App() {
             <AdminDashboard />
           </Route> */}
 
-      <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/*" component={AdminDashboard} />
           <Route path="/admin">
             <AdminAuth></AdminAuth>
           </Route>
