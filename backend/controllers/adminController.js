@@ -102,8 +102,8 @@ router.get("/products", async(req, res) => {
 //     // Create all products
 //     const createdProducts = await Promise.all(
 //       productMap.map(product => {
-//         const { title, price, image, category, subCategory } = product;
-//         return Product.create({ title, image, price, category, subCategory });
+//         const { title, price, image, category, subCategory,Description } = product;
+//         return Product.create({ title, image, price, category, subCategory,Description });
 //       })
 //     );
     
@@ -121,8 +121,8 @@ router.get("/products", async(req, res) => {
 
 router.post("/addproduct", verifyAdmin, async (req, res) => {
   try {
-    console.log(req.body, 'This is body');
-    const { title, price, image, category, subCategory } = req.body;
+    console.log('fladfkladmf',req.body, 'This is body');
+    const { title, price, image, category, subCategory,Description } = req.body;
 
     if (!title) {
       return res.status(400).json({ msg: "title field not found" });
@@ -141,7 +141,7 @@ router.post("/addproduct", verifyAdmin, async (req, res) => {
     }
 
     // Await the creation of the product
-    const product = await Product.create({ title, image, price, category, subCategory });
+    const product = await Product.create({ title, image, price, category, subCategory,Description });
 
     return res.status(200).json({
       product,

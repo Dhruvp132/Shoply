@@ -58,79 +58,60 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Switch>
-          <Route path="/orders">
-            <Header />
-            <Orders />
-          </Route>
 
-          <Route path="/product/:id" component={ProductDetails} />
+<Switch>
+  <Route path="/orders">
+    <Header />
+    <Orders />
+  </Route>
 
-      <Route path="/admin/*" component={AdminDashboard} />
-          <Route path="/admin">
-            <AdminAuth></AdminAuth>
+  <Route path="/product/:id" component={ProductDetails} />
 
-          {/* <Route path="/admin/dashbboard">
-            <AdminDashboard />
-            </Route> */}
-            <Route path="/login">
-              <Login />
-            </Route>
-          <Route path="/signup">
-            <Signup />
+  <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
+  <Route path="/admin/login" component={AdminSignIn} />
+  <Route path="/admin/signup" component={AdminSignUp} />
 
-          </Route>
-          <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
-          <DeliveryMiddleware
-            path="/delivery/dashboard"
-            component={DeliveryDashboard}
-          />
-          {/* <Middleware path="/">
-            <Header />
-            <Home />
-          </Middleware> */}
+  <DeliveryMiddleware path="/delivery/dashboard" component={DeliveryDashboard} />
+  <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
+  <Route path="/delivery/signup" component={DeliverySignup} />
+  <Route path="/delivery/login" component={DeliverySignin} />
 
-          <Route path="/admin/login" component={AdminSignIn} />
-          <Route path="/admin/signup" component={AdminSignUp} />
-          <Route path="/admin/*" component={AdminDashboard} />
+  <Route
+    path="/payment-success"
+    render={(props) =>
+      props.location.state && props.location.state.paymentSuccess ? (
+        <PaymentSuccess />
+      ) : (
+        <Redirect to="/" />
+      )
+    }
+  />
 
-          {/* not gonna hit if i put that donw  */}
-          <Route path="/delivery/dashboard">
-            <DeliveryDashboard />
-          </Route>
-  
-          <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
-          <Route path="/delivery/signup" component={DeliverySignup} />
-          <Route path="/delivery/login" component={DeliverySignin} />
-          <Route
-            path="/payment-success"
-            render={(props) =>
-              props.location.state && props.location.state.paymentSuccess ? (
-                <PaymentSuccess />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route path="/checkout">
-            <Header />
-            <Checkout />
-          </Route>
-          <Route path="/payment">
-            <Header />
-            <Elements stripe={promise}>
-              <Payment />
-            </Elements>
-          </Route>
-          <Route path="/collab">
-            <Header />
-            <CollabCart></CollabCart>
-          </Route>
-          <Route path="/">
-            <Header />
-            <Home />
-          </Route>
-        </Switch>
+  <Route path="/checkout">
+    <Header />
+    <Checkout />
+  </Route>
+  <Route path="/payment">
+    <Header />
+    <Elements stripe={promise}>
+      <Payment />
+    </Elements>
+  </Route>
+  <Route path="/collab">
+    <Header />
+    <CollabCart />
+  </Route>
+  <Route path="/login">
+    <Login />
+  </Route>
+  <Route path="/signup">
+    <Signup />
+  </Route>
+  <Route path="/">
+    <Header />
+    <Home />
+  </Route>
+</Switch>
       </div>
     </Router>
   );

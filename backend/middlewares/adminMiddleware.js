@@ -7,9 +7,10 @@ exports.verifyAdmin = async (req, res, next) => {
   if (!token) return res.status(400).json({  msg: "Token not found" });
   let admin;
   try {
-    adminEmail = jwt.verify(token, JWT_SECRET);
-    console.log(admin)
-  } catch (err) {
+    const decoded  = jwt.verify(token, JWT_SECRET);
+    adminEmail = decoded.adminEmail;
+
+ } catch (err) {
     return res.status(401).json({  msg: "Invalid token" });
   }
 

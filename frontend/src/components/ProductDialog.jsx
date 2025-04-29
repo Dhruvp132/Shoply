@@ -1,5 +1,5 @@
-import React from "react"
-import { useEffect, useState } from "react"
+import React from "react";
+import { useEffect, useState } from "react";
 
 const categories = [
   {
@@ -22,7 +22,7 @@ const categories = [
     name: "Sports",
     subcategories: ["Outdoor", "Indoor", "Fitness"],
   },
-]
+];
 
 const ProductDialog = ({ onClose, onSave, product }) => {
   const [formData, setFormData] = useState({
@@ -31,8 +31,9 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     image: "",
     category: "",
     subcategory: "",
-  })
-  const [availableSubcategories, setAvailableSubcategories] = useState([])
+    Description: "",
+  });
+  const [availableSubcategories, setAvailableSubcategories] = useState([]);
 
   useEffect(() => {
     // If product is provided, populate form with product data
@@ -43,44 +44,46 @@ const ProductDialog = ({ onClose, onSave, product }) => {
         image: product.image || "",
         category: product.category || "",
         subcategory: product.subcategory || "",
-      })
+      });
 
       // Set available subcategories based on the product's category
       if (product.category) {
-        const categoryObj = categories.find((cat) => cat.name === product.category)
+        const categoryObj = categories.find(
+          (cat) => cat.name === product.category
+        );
         if (categoryObj) {
-          setAvailableSubcategories(categoryObj.subcategories)
+          setAvailableSubcategories(categoryObj.subcategories);
         }
       }
     }
-  }, [product])
+  }, [product]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     // Prevent negative prices
     if (name === "price" && (value === "-" || Number.parseInt(value) < 0)) {
-      return
+      return;
     }
 
-    setFormData({ ...formData, [name]: value })
+    setFormData({ ...formData, [name]: value });
 
     // If category changes, update available subcategories and reset subcategory
     if (name === "category") {
-      const categoryObj = categories.find((cat) => cat.name === value)
+      const categoryObj = categories.find((cat) => cat.name === value);
       if (categoryObj) {
-        setAvailableSubcategories(categoryObj.subcategories)
-        setFormData((prev) => ({ ...prev, subcategory: "" }))
+        setAvailableSubcategories(categoryObj.subcategories);
+        setFormData((prev) => ({ ...prev, subcategory: "" }));
       } else {
-        setAvailableSubcategories([])
+        setAvailableSubcategories([]);
       }
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onSave(formData)
-  }
+    e.preventDefault();
+    onSave(formData);
+  };
 
   // Dialog overlay styles
   const overlayStyles = {
@@ -94,7 +97,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1000,
-  }
+  };
 
   // Dialog container styles
   const dialogStyles = {
@@ -105,7 +108,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     maxWidth: "500px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     zIndex: 1001,
-  }
+  };
 
   // Dialog header styles
   const headerStyles = {
@@ -113,13 +116,13 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: "20px",
-  }
+  };
 
   // Dialog title styles
   const titleStyles = {
     fontSize: "20px",
     fontWeight: "bold",
-  }
+  };
 
   // Close button styles
   const closeButtonStyles = {
@@ -127,27 +130,27 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     border: "none",
     fontSize: "20px",
     cursor: "pointer",
-  }
+  };
 
   // Form styles
   const formStyles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-  }
+  };
 
   // Form group styles
   const formGroupStyles = {
     display: "flex",
     flexDirection: "column",
     gap: "5px",
-  }
+  };
 
   // Label styles
   const labelStyles = {
     fontSize: "14px",
     fontWeight: "bold",
-  }
+  };
 
   // Input styles
   const inputStyles = {
@@ -155,7 +158,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     borderRadius: "4px",
     border: "1px solid #ddd",
     fontSize: "14px",
-  }
+  };
 
   // Select styles
   const selectStyles = {
@@ -164,7 +167,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     border: "1px solid #ddd",
     fontSize: "14px",
     backgroundColor: "white",
-  }
+  };
 
   // Button container styles
   const buttonContainerStyles = {
@@ -172,7 +175,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     justifyContent: "flex-end",
     gap: "10px",
     marginTop: "20px",
-  }
+  };
 
   // Cancel button styles
   const cancelButtonStyles = {
@@ -181,7 +184,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     border: "1px solid #ddd",
     backgroundColor: "#f5f5f5",
     cursor: "pointer",
-  }
+  };
 
   // Save button styles
   const saveButtonStyles = {
@@ -191,13 +194,15 @@ const ProductDialog = ({ onClose, onSave, product }) => {
     backgroundColor: "#4CAF50",
     color: "white",
     cursor: "pointer",
-  }
+  };
 
   return (
     <div style={overlayStyles}>
       <div style={dialogStyles}>
         <div style={headerStyles}>
-          <h2 style={titleStyles}>{product ? "Edit Product" : "Add Product"}</h2>
+          <h2 style={titleStyles}>
+            {product ? "Edit Product" : "Add Product"}
+          </h2>
           <button style={closeButtonStyles} onClick={onClose}>
             ×
           </button>
@@ -245,6 +250,22 @@ const ProductDialog = ({ onClose, onSave, product }) => {
               required
             />
           </div>
+
+          <div style={formGroupStyles}>
+            <label style={labelStyles} htmlFor="Description">
+              Desciption
+            </label>
+            <input
+              style={inputStyles}
+              type="text"
+              id="Description"
+              name="Description"
+              value={formData.Description}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
           <div style={formGroupStyles}>
             <label style={labelStyles} htmlFor="category">
               Category
@@ -297,7 +318,7 @@ const ProductDialog = ({ onClose, onSave, product }) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductDialog
+export default ProductDialog;
