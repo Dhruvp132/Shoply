@@ -89,19 +89,28 @@ function Home() {
   
         // Combine both product arrays and add random categories/subcategories if missing
         const combinedProducts = [...localProducts, ...apiProducts].map(product => {
+          // Always set _id and id
+          if (!product._id && product.id) {
+            product._id = product.id;
+          }
+          if (!product.id && product._id) {
+            product.id = product._id;
+          }
+          // Normalize subCategory to subcategory
+          if (product.subCategory && !product.subcategory) {
+            product.subcategory = product.subCategory;
+          }
           if (!product.category) {
             const randomCategory = categories[Math.floor(Math.random() * categories.length)];
             product.category = randomCategory.name;
             product.subcategory = randomCategory.subcategories[Math.floor(Math.random() * randomCategory.subcategories.length)];
           } else if (!product.subcategory) {
-            // Ensure all products have a subcategory
             const categoryObj = categories.find(cat => 
               cat.name.toLowerCase() === product.category.toLowerCase()
             );
             if (categoryObj) {
               product.subcategory = categoryObj.subcategories[Math.floor(Math.random() * categoryObj.subcategories.length)];
             } else {
-              // If category doesn't match our predefined categories, assign a random one
               const randomCategory = categories[Math.floor(Math.random() * categories.length)];
               product.subcategory = randomCategory.subcategories[Math.floor(Math.random() * randomCategory.subcategories.length)];
             }
@@ -413,12 +422,12 @@ function Home() {
           {!isLoading && !searchKeyword && !selectedCategory && !selectedSubcategory && !selectedGender && (
             <div style={{ marginBottom: '30px' }}>
               {/* Featured Products */}
-              <ProductGrid 
+              {/* <ProductGrid 
                 title="Today's Deals" 
                 products={hardcodedProducts.slice(0, 4)} 
                 columns={4} 
               />
-              
+               */}
               {/* Electronics */}
               <ProductGrid 
                 title="Electronics" 
@@ -552,7 +561,7 @@ function Home() {
                 ) : (
                   filteredProducts.map((product) => (
                     <div 
-                      key={product.id} 
+                      key={product._id} 
                       style={{ 
                         width: '25%', 
                         padding: '0 10px',
@@ -569,7 +578,7 @@ function Home() {
                       }}
                     >
                       <Product
-                        id={product.id}
+                        id={product._id}
                         title={product.title}
                         price={product.price}
                         rating={product.rating || 4}
@@ -621,7 +630,7 @@ function Home() {
                 ) : (
                   filteredProducts.map((product) => (
                     <div 
-                      key={product.id} 
+                      key={product._id} 
                       style={{ 
                         width: '25%', 
                         padding: '0 10px',
@@ -638,7 +647,7 @@ function Home() {
                       }}
                     >
                       <Product
-                        id={product.id}
+                        id={product._id}
                         title={product.title}
                         price={product.price}
                         rating={product.rating || 4}

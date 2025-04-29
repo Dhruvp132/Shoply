@@ -49,6 +49,20 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/products/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    console.log(productId)
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ msg: "Product not found" });
+    }
+    res.status(200).json({ product });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+});
 
 router.get("/products", async(req, res) => {
   try {

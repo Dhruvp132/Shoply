@@ -21,6 +21,7 @@ import AdminSignIn from "./Admin/AdminSignin";
 import AdminSignUp from "./Admin/AdminSignup";
 import DeliverySignin from "./Delivery/DeliverySignin";
 import DeliverySignup from "./Delivery/DeliverySignup";
+import ProductDetails from "./ProductDetails.jsx";
 import Signup from "./Signup";
 import { DeliveryMiddleware, AdminMiddleware, RecruiterMiddleware } from "./middleware";
 
@@ -62,6 +63,13 @@ function App() {
             <Header />
             <Orders />
           </Route>
+
+          <Route path="/product/:id" component={ProductDetails} />
+
+      <Route path="/admin/*" component={AdminDashboard} />
+          <Route path="/admin">
+            <AdminAuth></AdminAuth>
+
           {/* <Route path="/admin/dashbboard">
             <AdminDashboard />
             </Route> */}
@@ -70,6 +78,7 @@ function App() {
             </Route>
           <Route path="/signup">
             <Signup />
+
           </Route>
           <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
           <DeliveryMiddleware
