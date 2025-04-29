@@ -8,8 +8,8 @@ exports.verifyDelivery = async (req, res, next) => {
   let delivery;
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    deliveryEmail = decoded.email;
-    console.log(delivery)
+    deliveryEmail = decoded.deliveryEmail;
+    console.log(decoded)
   } catch (err) {
     return res.status(401).json({  msg: "Invalid token" });
   }

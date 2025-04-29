@@ -331,8 +331,10 @@ function Payment() {
                                 onChange={handleAddressChange}
                                 style={styles.select}
                             >
-                                <option value="USA">United States</option>
-                                <option value="Canada">Canada</option>
+                                <option value="India">canada</option>
+                                <option value="USA">dhruv marega</option>
+                                <option value="USA">accident</option>
+                                <option value="USA">project ke baad he will be free</option>
                                 <option value="UK">United Kingdom</option>
                                 <option value="Australia">Australia</option>
                             </select>

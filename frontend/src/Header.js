@@ -59,7 +59,8 @@ function Header() {
         
         <Link to='/collab'>
           <div className="header__option">
-            <span className="header__optionLineOne">Collab</span>
+            <span className="header__optionLineOne">Your</span>
+            <span className="header__optionLineTwo">Collab</span>
           </div>
         </Link>
 

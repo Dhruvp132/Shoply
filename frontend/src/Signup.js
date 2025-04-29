@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import { auth, db } from "./firebase";
+import { useStateValue } from './StateProvider';
 
 function Signup() {
     const history = useHistory();
@@ -9,6 +10,13 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
+    const [, dispatch] = useStateValue();
+    
+        useEffect(() => {
+            dispatch({
+                type: 'EMPTY_BASKET'
+            });
+        }, [dispatch]);
 
     const register = (e) => {
         e.preventDefault();
@@ -53,7 +61,7 @@ function Signup() {
                         type='text'
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        placeholder="First and last name"
+                        placeholder=""
                         required
                     />
 
@@ -62,7 +70,7 @@ function Signup() {
                         type='tel'
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
-                        placeholder="Mobile number"
+                        placeholder=""
                         required
                     />
 
@@ -71,6 +79,14 @@ function Signup() {
                         type='text'
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        required
+                    />
+
+                <h5>Address</h5>
+                    <input
+                        type='text'
+                        value={email}
+                        onChange
                         required
                     />
 

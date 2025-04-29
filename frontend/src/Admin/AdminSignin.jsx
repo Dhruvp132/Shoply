@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 const API_BASE = "http://localhost:5001/";
 
@@ -65,6 +65,7 @@ const AdminSignIn = () => {
 
                     <button type="submit" style={buttonStyle}>Sign In</button>
                 </form>
+                    <button onClick={() => history.push("/admin/signup")} style={buttonStyle} >Create Admin</button>
                 <p style={{ fontSize: 12, margin: "16px 0" }}>
                     By signing-in you agree to the AMAZON FAKE CLONE Admin Conditions of Use & Sale.
                 </p>

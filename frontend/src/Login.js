@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import { auth, db } from "./firebase"; // Firestore imported from firebase.js
+import { useStateValue } from './StateProvider';
 
 function Login() {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [, dispatch] = useStateValue();
+
+    useEffect(() => {
+        dispatch({
+            type: 'EMPTY_BASKET'
+        });
+    }, [dispatch]);
 
     const signIn = (e) => {
         e.preventDefault();
@@ -17,6 +25,7 @@ function Login() {
             })
             .catch(error => alert(error.message));
     };
+
     return (
         <div className='login'>
             <Link to='/'>

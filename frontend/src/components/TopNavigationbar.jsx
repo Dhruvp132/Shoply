@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function TopNavigation({ 
   categories, 
@@ -7,7 +8,8 @@ function TopNavigation({
   onToggleSidebar
 }) {
   const [hoveredCategory, setHoveredCategory] = useState(null);
-  
+  const history = useHistory(); 
+
   return (
     <div style={{
       backgroundColor: '#232f3e',
@@ -149,10 +151,38 @@ function TopNavigation({
               }}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#37475A'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => {
+                if (item === "Customer Service") {
+                  history.push("/support");
+                }
+              }}
             >
               {item}
             </div>
           ))}
+          
+          <div style={{
+          marginLeft: 'auto',
+          display: 'flex',
+          height: '100%'
+        }}>
+          <div 
+              style={{
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 15px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#37475A'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => history.push("/support")} // <-- Use history here
+            >
+              Support
+            </div>
+            </div>
         </div>
       </div>
     </div>
