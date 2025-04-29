@@ -1,9 +1,10 @@
 import React from "react";
 import { useStateValue } from "./StateProvider";
+import { useHistory } from "react-router-dom";
 
 function Product({ id, title, image, price, rating, category, subcategory, gender }) {
   const [{ basket }, dispatch] = useStateValue();
-
+  const history = useHistory(); 
   const addToBasket = () => {
     // dispatch the item into the data layer
     dispatch({
@@ -107,6 +108,12 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
       </div>
     </div>
 
+    <div style={{
+       display: 'flex',
+        flexDirection: 'row',
+        gap : "10px",
+    }}>
+  
     <button 
       onClick={addToBasket}
       style={{
@@ -118,7 +125,7 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
         padding: '8px 16px',
         borderRadius: '3px',
         cursor: 'pointer',
-        width: '100%',
+        width: '45%',
         fontSize: '14px',
         fontWeight: '500',
         transition: 'background-color 0.2s'
@@ -132,6 +139,33 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
     >
       Add to Basket
     </button>
+    <button style={{
+       backgroundColor: '#f0c14b',
+       border: '1px solid',
+       marginTop: '10px',
+       borderColor: '#a88734 #9c7e31 #846a29',
+       color: '#111',
+       padding: '8px 16px',
+       borderRadius: '3px',
+       cursor: 'pointer',
+       width: '45%',
+       fontSize: '14px',
+       fontWeight: '500',
+       transition: 'background-color 0.2s'
+    }}
+    onMouseOver={(e) => {
+      e.currentTarget.style.backgroundColor = '#ddb347';
+    }}
+    onMouseOut={(e) => {
+      e.currentTarget.style.backgroundColor = '#f0c14b';
+    }}
+    onClick = {() => {
+      history.push(`/product/${id}`);
+    }}
+    > 
+    View Details </button>
+        
+    </div>
   </div>
 );
 }

@@ -57,7 +57,7 @@ const getSharedCollabCart = async (req, res) => {
         });
 
         if (!sharedCarts.length) {
-            return res.status(404).json({ msg: 'No shared collab carts found' });
+            return res.status(200).json({ msg: 'No shared collab carts found' });
         }
 
         res.status(200).json(sharedCarts);

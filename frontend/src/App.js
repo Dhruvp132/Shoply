@@ -21,6 +21,7 @@ import AdminAuth from "./Admin/AdminAuth";
 import DeliveryAuth from "./Delivery/DeliveryAuth";
 import DeliverySignin from "./Delivery/DeliverySignin";
 import DeliverySignup from "./Delivery/DeliverySignup";
+import ProductDetails from "./ProductDetails.jsx";
 import Signup from "./Signup";
 
 const promise = loadStripe(
@@ -61,9 +62,7 @@ function App() {
             <Header />
             <Orders />
           </Route>
-          {/* <Route path="/admin/dashbboard">
-            <AdminDashboard />
-          </Route> */}
+          <Route path="/product/:id" component={ProductDetails} />
 
       <Route path="/admin/*" component={AdminDashboard} />
           <Route path="/admin">

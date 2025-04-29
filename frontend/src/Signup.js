@@ -25,7 +25,8 @@ function Signup() {
                         createdAt: new Date(),
                     })
                     .then(() => {
-                        history.push('/');
+                        alert("Account created successfully, Now Please login");
+                        history.push('/login');
                     })
                     .catch(error => alert(error.message));
                 }
