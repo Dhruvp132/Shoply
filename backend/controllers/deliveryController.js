@@ -1,19 +1,21 @@
 const express = require("express");
 const Delivery = require("../ models/Delivery");
 const router = express.Router();
-
 const DeliveryUser = require("../ models/DeliveryUser");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = "secret"; 
 
 const addDeliveryUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, contact, email, password } = req.body;
     if (!email) {
       return res.status(400).json({ msg: "Email field not found" });
     }
     if (!password) {
       return res.status(400).json({ msg: "Password field not found" });
     }
-    const deliveryUser = await DeliveryUser.create({ email, password });
+    const deliveryUser = await DeliveryUser.create({ name, contact, email, password });
     res.status(200).json({ deliveryUser, msg: "Delivery user created successfully.." });
   } catch (err) {
     console.error(err);
@@ -35,8 +37,8 @@ const getDeliveryUser = async (req, res) => {
     if (deliveryUser.password !== password) {
       return res.status(400).json({ msg: "Password is incorrect" });
     }
-
-    res.status(200).json({ deliveryUser, msg: "Delivery user logged in successfully.." });
+    const token = jwt.sign({ email }, JWT_SECRET);
+    res.status(200).json({ token, msg: "Delivery user logged in successfully.." });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Internal Server Error" });

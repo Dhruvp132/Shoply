@@ -2,13 +2,15 @@ const Product = require("../ models/Product");
 const express = require("express");
 const router = express.Router();
 const Admin = require("../ models/Admin");
-
+const jwt = require("jsonwebtoken");
+const { verifyAdmin } = require("../middlewares/adminMiddleware");
 
 // router.get("/check", (req, res) => {
 //   // check is Admin exists in the database 
 // });
+const JWT_SECRET = "secret" ; 
 
-router.post("/adminsignup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email) {
@@ -18,13 +20,14 @@ router.post("/adminsignup", async (req, res) => {
       return res.status(400).json({ msg: "password field not found" });
     }
     const admin = await Admin.create({ email, password });
-    res.status(200).json({ admin, msg: "Admin created successfully.." });
+    res.status(200).json({ token, admin, msg: "Admin created successfully.." });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
+})
 
-  router.post("/adminsignin", async (req, res) => {
+router.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
       if (!email) {
@@ -38,17 +41,16 @@ router.post("/adminsignup", async (req, res) => {
       if (admin.password !== password) {
         return res.status(400).json({ msg: "Password is incorrect" });
       }
-
-      res.status(200).json({ admin, msg: "Admin logged in successfully.." });
+      const token = jwt.sign(admin.email, JWT_SECRET);
+      res.status(200).json({ token, msg: "Admin logged in successfully.." });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ msg: "Internal Server Error" });
     }
-  });
 });
 
 
-router.get("/products" , async(req, res) => {
+router.get("/products", async(req, res) => {
   try {
     const products = await Product.find();
     res.status(200).json({ products });
@@ -58,50 +60,85 @@ router.get("/products" , async(req, res) => {
   }
 })
 
-router.post("/addproduct", async (req, res) => {
+// router.post("/addproduct", verifyAdmin ,async (req, res) => {
+//   try {
+//     console.log(req.body,'This is body')
+//     const productMap = req.body;
+    
+//     // Validate all products first
+//     for (const product of productMap) {
+//       const { title, price, image, category, subCategory } = product;
+//       if (!title) {
+//         return res.status(400).json({ msg: "title field not found" });
+//       }
+//       if (!image) {
+//         return res.status(400).json({ msg: "image link field not found " });
+//       }
+//       if (!price) {
+//         return res.status(400).json({ msg: "Price field not found" });
+//       }
+//       if (!category) {
+//         return res.status(400).json({ msg: "Category field not found" });
+//       }
+//       if (!subCategory) {
+//         return res.status(400).json({ msg: "subCategory field not found" });
+//       }
+//     }
+    
+//     // Create all products
+//     const createdProducts = await Promise.all(
+//       productMap.map(product => {
+//         const { title, price, image, category, subCategory } = product;
+//         return Product.create({ title, image, price, category, subCategory });
+//       })
+//     );
+    
+//     // Send a single response after all products are created
+//     return res.status(200).json({ 
+//       products: createdProducts, 
+//       msg: "Products added successfully.." 
+//     });
+//   }
+//   catch (err) {
+//     console.error(err);
+//     return res.status(500).json({ msg: "Internal Server Error" });
+//   }
+// });
+
+router.post("/addproduct", verifyAdmin, async (req, res) => {
   try {
-    console.log(req.body,'This is body')
-    const productMap = req.body;
-    
-    // Validate all products first
-    for (const product of productMap) {
-      const { title, price, image, category, subCategory } = product;
-      if (!title) {
-        return res.status(400).json({ msg: "title field not found" });
-      }
-      if (!image) {
-        return res.status(400).json({ msg: "image link field not found " });
-      }
-      if (!price) {
-        return res.status(400).json({ msg: "Price field not found" });
-      }
-      if (!category) {
-        return res.status(400).json({ msg: "Category field not found" });
-      }
-      if (!subCategory) {
-        return res.status(400).json({ msg: "subCategory field not found" });
-      }
+    console.log(req.body, 'This is body');
+    const { title, price, image, category, subCategory } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ msg: "title field not found" });
     }
-    
-    // Create all products
-    const createdProducts = await Promise.all(
-      productMap.map(product => {
-        const { title, price, image, category, subCategory } = product;
-        return Product.create({ title, image, price, category, subCategory });
-      })
-    );
-    
-    // Send a single response after all products are created
-    return res.status(200).json({ 
-      products: createdProducts, 
-      msg: "Products added successfully.." 
+    if (!image) {
+      return res.status(400).json({ msg: "image link field not found " });
+    }
+    if (price === undefined || price === null) {
+      return res.status(400).json({ msg: "Price field not found" });
+    }
+    if (!category) {
+      return res.status(400).json({ msg: "Category field not found" });
+    }
+    if (!subCategory) {
+      return res.status(400).json({ msg: "subCategory field not found" });
+    }
+
+    // Await the creation of the product
+    const product = await Product.create({ title, image, price, category, subCategory });
+
+    return res.status(200).json({
+      product,
+      msg: "Product added successfully."
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 });
+
 router.put("/updateProduct/:productId", async (req, res) => {
   try {
     const productId = req.params.productId;
