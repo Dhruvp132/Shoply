@@ -79,7 +79,7 @@ const updateDelivery = async (req, res) => {
 
 const addDelivery = async (req, res) => {
   try {
-    const { orderId, userId, orderStatus, paymentStatus, deliveryId, deliveryAgentId, basket, deliveryAddress } = req.body;
+    const { orderId, userId, orderStatus, paymentStatus, deliveryId, deliveryAgentId, basket } = req.body;
     const newDelivery = new Delivery({
       orderId,
       userId,
@@ -88,7 +88,6 @@ const addDelivery = async (req, res) => {
       deliveryId,
       deliveryAgentId,
       basket,
-      deliveryAddress
     });
 
     await newDelivery.save();

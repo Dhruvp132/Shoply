@@ -72,8 +72,8 @@ function App() {
           <Route path="/delivery/dashboard">
             <DeliveryDashboard />
           </Route>
-          <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
           <Route path="/delivery" component={DeliveryAuth} />
+          <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
           <Route path="/login">
             <Login />
           </Route>
