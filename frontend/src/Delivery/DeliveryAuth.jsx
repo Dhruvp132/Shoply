@@ -23,7 +23,12 @@ const DeliveryAuth = () => {
             const data = await res.json();
             if (res.status === 200) {
                 localStorage.setItem("deliveryToken", data.token);
-                history.replace('/delivery/dashboard');
+                if(endpoint === "delivery/signup") {
+                    history.replace('/delivery/login');
+                }
+                else{
+                    history.replace('/delivery/dashboard');
+                }
                 setMessage(data.msg);
             }  else {
                 setMessage(data.msg || "Something went wrong");

@@ -19,6 +19,8 @@ import CartDetails from "./components/CartDetails";
 import CollabCart from "./Collab/CollabCart";
 import AdminAuth from "./Admin/AdminAuth";
 import DeliveryAuth from "./Delivery/DeliveryAuth";
+import DeliverySignin from "./Delivery/DeliverySignin";
+import DeliverySignup from "./Delivery/DeliverySignup";
 import Signup from "./Signup";
 
 const promise = loadStripe(
@@ -73,7 +75,8 @@ function App() {
             <DeliveryDashboard />
           </Route>
           <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
-          <Route path="/delivery" component={DeliveryAuth} />
+          <Route path="/delivery/signup" component={DeliverySignup} />
+          <Route path="/delivery/login" component={DeliverySignin} />
           <Route path="/login">
             <Login />
           </Route>
