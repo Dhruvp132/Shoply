@@ -33,20 +33,13 @@ function App() {
   const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
-    // will only run once when the app component loads...
-
     auth.onAuthStateChanged((authUser) => {
-      console.log("THE USER IS >>> ", authUser);
-
       if (authUser) {
-        // the user just logged in / the user was logged in
-
         dispatch({
           type: "SET_USER",
           user: authUser,
         });
       } else {
-        // the user is logged out
         dispatch({
           type: "SET_USER",
           user: null,
@@ -66,42 +59,19 @@ function App() {
 
           <Route path="/product/:id" component={ProductDetails} />
 
-      <Route path="/admin/*" component={AdminDashboard} />
-          <Route path="/admin">
-            <AdminAuth></AdminAuth>
-
-          {/* <Route path="/admin/dashbboard">
-            <AdminDashboard />
-            </Route> */}
-            <Route path="/login">
-              <Login />
-            </Route>
-          <Route path="/signup">
-            <Signup />
-
-          </Route>
           <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
+          <Route path="/admin/login" component={AdminSignIn} />
+          <Route path="/admin/signup" component={AdminSignUp} />
+          {/* <Route path="/admin" component={AdminAu} /> */}
+
           <DeliveryMiddleware
             path="/delivery/dashboard"
             component={DeliveryDashboard}
           />
-          {/* <Middleware path="/">
-            <Header />
-            <Home />
-          </Middleware> */}
-
-          <Route path="/admin/login" component={AdminSignIn} />
-          <Route path="/admin/signup" component={AdminSignUp} />
-          <Route path="/admin/*" component={AdminDashboard} />
-
-          {/* not gonna hit if i put that donw  */}
-          <Route path="/delivery/dashboard">
-            <DeliveryDashboard />
-          </Route>
-  
           <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
           <Route path="/delivery/signup" component={DeliverySignup} />
           <Route path="/delivery/login" component={DeliverySignin} />
+
           <Route
             path="/payment-success"
             render={(props) =>
@@ -112,6 +82,7 @@ function App() {
               )
             }
           />
+
           <Route path="/checkout">
             <Header />
             <Checkout />
@@ -124,7 +95,13 @@ function App() {
           </Route>
           <Route path="/collab">
             <Header />
-            <CollabCart></CollabCart>
+            <CollabCart />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/">
             <Header />

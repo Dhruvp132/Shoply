@@ -339,11 +339,12 @@ function Home() {
   ];
 
   // Group products by category for display
-  const getProductsByCategory = (category) => {
-    return fetchedProducts.filter(product => 
-      product.category && product.category.toLowerCase() === category.toLowerCase()
-    ).slice(0, 4); // Limit to 4 products per category
-  };
+  // Replace the existing getProductsByCategory function with this:
+const getProductsByCategory = (category) => {
+  return fetchedProducts.filter(product => 
+    product.category && product.category.toLowerCase() === category.toLowerCase()
+  );
+};
 
   return (
     <div style={{
@@ -428,25 +429,29 @@ function Home() {
                 columns={4} 
               />
                */}
+
               {/* Electronics */}
               <ProductGrid 
                 title="Electronics" 
                 products={getProductsByCategory("Electronics")} 
                 columns={4} 
+                categoryName="Electronics"
               />
-              
+
               {/* Fashion */}
               <ProductGrid 
                 title="Fashion" 
                 products={getProductsByCategory("Fashion")} 
                 columns={4} 
+                categoryName="Fashion"
               />
-              
+
               {/* Home & Kitchen */}
               <ProductGrid 
                 title="Home & Kitchen" 
                 products={getProductsByCategory("Home & Kitchen")} 
                 columns={4} 
+                categoryName="Home & Kitchen"
               />
             </div>
           )}
