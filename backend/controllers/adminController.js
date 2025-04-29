@@ -20,7 +20,7 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ msg: "password field not found" });
     }
     const admin = await Admin.create({ email, password });
-    res.status(200).json({ token, admin, msg: "Admin created successfully.." });
+    res.status(200).json({ admin, msg: "Admin created successfully.." });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Internal Server Error" });
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
       if (admin.password !== password) {
         return res.status(400).json({ msg: "Password is incorrect" });
       }
-      const token = jwt.sign(admin.email, JWT_SECRET);
+      const token = jwt.sign({adminEmail : admin.email}, JWT_SECRET);
       res.status(200).json({ token, msg: "Admin logged in successfully.." });
     } catch (err) {
       console.error(err);

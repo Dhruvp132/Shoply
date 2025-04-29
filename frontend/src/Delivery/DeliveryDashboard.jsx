@@ -168,6 +168,7 @@ function DeliveryDashboard() {
         <div className="header-content">
           <h1>Delivery Dashboard</h1>
           <div className="header-actions">
+          <button onClick={()=>{localStorage.removeItem('deliveryToken');window.location.reload()}} style={{backgroundColor:"#FF474C" , padding:"12px" ,color:'white',widtH:"20px", borderRadius:'10px'}}>Logout</button>
             <div className="search-container">
               <input
                 type="text"

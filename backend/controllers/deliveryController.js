@@ -37,7 +37,7 @@ const getDeliveryUser = async (req, res) => {
     if (deliveryUser.password !== password) {
       return res.status(400).json({ msg: "Password is incorrect" });
     }
-    const token = jwt.sign({ email }, JWT_SECRET);
+    const token = jwt.sign({ deliveryEmail:email }, JWT_SECRET);
     res.status(200).json({ token, msg: "Delivery user logged in successfully.." });
   } catch (err) {
     console.error(err);
