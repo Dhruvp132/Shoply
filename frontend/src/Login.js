@@ -17,31 +17,6 @@ function Login() {
             })
             .catch(error => alert(error.message));
     };
-
-    const register = (e) => {
-        e.preventDefault();
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user); 
-                if (user) {
-                    // Save user details in Firestore
-                    db.collection("users").doc(user.uid).set({
-                        uid: user.uid,
-                        email: user.email,
-                        createdAt: new Date(),
-                    })
-                    .then(() => {
-                        console.log("User added to Firestore");
-                        history.push('/');
-                    })
-                    .catch(error => alert(error.message));
-                }
-            })
-            .catch(error => alert(error.message));
-        };
-
     return (
         <div className='login'>
             <Link to='/'>

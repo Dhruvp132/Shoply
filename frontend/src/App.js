@@ -17,11 +17,12 @@ import PaymentSuccess from "./PaymentSuccess";
 import { Redirect } from "react-router-dom/cjs/react-router-dom";
 import CartDetails from "./components/CartDetails";
 import CollabCart from "./Collab/CollabCart";
-import AdminAuth from "./Admin/AdminAuth";
-import DeliveryAuth from "./Delivery/DeliveryAuth";
+import AdminSignIn from "./Admin/AdminSignin";
+import AdminSignUp from "./Admin/AdminSignup";
 import DeliverySignin from "./Delivery/DeliverySignin";
 import DeliverySignup from "./Delivery/DeliverySignup";
 import Signup from "./Signup";
+import { DeliveryMiddleware, AdminMiddleware, RecruiterMiddleware } from "./middleware";
 
 const promise = loadStripe(
   "pk_test_51R1R5HJlvCjqT1EtEInaYXkY3L2n7M2zXbE8FiO2EUZwMOqT7k3fJM0LOag5r7OIaX1XI7dQ4zsYd7lT4LRqenoA00q51mtuvJ"
@@ -63,33 +64,45 @@ function App() {
           </Route>
           {/* <Route path="/admin/dashbboard">
             <AdminDashboard />
-          </Route> */}
-
-      <Route path="/admin/*" component={AdminDashboard} />
-          <Route path="/admin">
-            <AdminAuth></AdminAuth>
+            </Route> */}
+            <Route path="/login">
+              <Login />
+            </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
-          
+          <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
+          <DeliveryMiddleware
+            path="/delivery/dashboard"
+            component={DeliveryDashboard}
+          />
+          {/* <Middleware path="/">
+            <Header />
+            <Home />
+          </Middleware> */}
+
+          <Route path="/admin/login" component={AdminSignIn} />
+          <Route path="/admin/signup" component={AdminSignUp} />
+          <Route path="/admin/*" component={AdminDashboard} />
+
           {/* not gonna hit if i put that donw  */}
           <Route path="/delivery/dashboard">
             <DeliveryDashboard />
           </Route>
+  
           <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
           <Route path="/delivery/signup" component={DeliverySignup} />
           <Route path="/delivery/login" component={DeliverySignin} />
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/payment-success" render={(props) => (
-            props.location.state && props.location.state.paymentSuccess ? (
-              <PaymentSuccess />
-            ) : (
-              <Redirect to="/" />
-            )
-          )} />
+          <Route
+            path="/payment-success"
+            render={(props) =>
+              props.location.state && props.location.state.paymentSuccess ? (
+                <PaymentSuccess />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
           <Route path="/checkout">
             <Header />
             <Checkout />
@@ -101,8 +114,8 @@ function App() {
             </Elements>
           </Route>
           <Route path="/collab">
-          <Header />
-          <CollabCart></CollabCart>
+            <Header />
+            <CollabCart></CollabCart>
           </Route>
           <Route path="/">
             <Header />
