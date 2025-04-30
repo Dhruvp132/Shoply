@@ -25,6 +25,7 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
   return (
   <div style={{
     display: 'flex',
+    height : "400px",
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -54,7 +55,8 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
       src={image || "/placeholder.svg"} 
       alt={title} 
       style={{
-        maxHeight: '200px',
+        // maxHeight: '200px',
+        height : "150px",
         width: '100%',
         objectFit: 'contain',
         marginBottom: '15px'
@@ -79,7 +81,7 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
       }}>{title}</p>
       
       <p style={{
-        fontSize: '12px',
+        fontSize: '5px',
         color: '#565959',
         marginBottom: '5px'
       }}>
@@ -111,7 +113,7 @@ function Product({ id, title, image, price, rating, category, subcategory, gende
     <div style={{
        display: 'flex',
         flexDirection: 'row',
-        gap : "10px",
+        gap : "2px",
     }}>
   
     <button 

@@ -22,8 +22,10 @@ import AdminSignUp from "./Admin/AdminSignup";
 import DeliverySignin from "./Delivery/DeliverySignin";
 import DeliverySignup from "./Delivery/DeliverySignup";
 import ProductDetails from "./ProductDetails.jsx";
+
 import Signup from "./Signup";
 import { DeliveryMiddleware, AdminMiddleware, RecruiterMiddleware } from "./middleware";
+import SupportPage from "./Support.jsx";
 
 const promise = loadStripe(
   "pk_test_51R1R5HJlvCjqT1EtEInaYXkY3L2n7M2zXbE8FiO2EUZwMOqT7k3fJM0LOag5r7OIaX1XI7dQ4zsYd7lT4LRqenoA00q51mtuvJ"
@@ -58,16 +60,22 @@ function App() {
     <Orders />
   </Route>
 
-  <Route path="/product/:id" component={ProductDetails} />
+  <Route path="/product/:id" >
+    <Header />
+    <ProductDetails />
+  </Route>
 
   <AdminMiddleware path="/admin/dashboard" component={AdminDashboard} />
   <Route path="/admin/login" component={AdminSignIn} />
   <Route path="/admin/signup" component={AdminSignUp} />
-
+  <AdminMiddleware path="/admin" component={AdminDashboard} />
+  
   <DeliveryMiddleware path="/delivery/dashboard" component={DeliveryDashboard} />
   <Route path="/delivery/cartDetails/:userId" component={CartDetails} />
   <Route path="/delivery/signup" component={DeliverySignup} />
   <Route path="/delivery/login" component={DeliverySignin} />
+  <DeliveryMiddleware path="/delivery" component={DeliveryDashboard} />
+  <Route path="/support" component={SupportPage} />
 
   <Route
     path="/payment-success"

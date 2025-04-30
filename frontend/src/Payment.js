@@ -26,7 +26,7 @@ function Payment() {
         city: '',
         state: '',
         zipCode: '',
-        country: 'USA'
+        country: 'India'
     });
     
     // Category and subcategory state
@@ -331,8 +331,8 @@ function Payment() {
                                 onChange={handleAddressChange}
                                 style={styles.select}
                             >
-                                <option value="USA">United States</option>
-                                <option value="Canada">Canada</option>
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
                                 <option value="UK">United Kingdom</option>
                                 <option value="Australia">Australia</option>
                             </select>

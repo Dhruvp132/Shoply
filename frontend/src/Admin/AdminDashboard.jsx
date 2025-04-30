@@ -346,7 +346,7 @@ function AdminDashboard() {
             }}
             onClick={() => {
               localStorage.removeItem("adminToken");
-              history.push("/admin");
+              history.push("/admin/login");
             }}>
               Logout
             </button>
