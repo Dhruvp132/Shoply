@@ -26,7 +26,7 @@ function Payment() {
         city: '',
         state: '',
         zipCode: '',
-        country: 'USA'
+        country: 'India'
     });
     
     // Category and subcategory state
@@ -331,10 +331,8 @@ function Payment() {
                                 onChange={handleAddressChange}
                                 style={styles.select}
                             >
-                                <option value="India">canada</option>
-                                <option value="USA">dhruv marega</option>
-                                <option value="USA">accident</option>
-                                <option value="USA">project ke baad he will be free</option>
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
                                 <option value="UK">United Kingdom</option>
                                 <option value="Australia">Australia</option>
                             </select>

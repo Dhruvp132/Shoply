@@ -31,7 +31,7 @@ function Login() {
             <Link to='/'>
                 <img
                     className="login__logo"
-                    src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png' 
+                    src="https://th.bing.com/th/id/R.e116e7eba13c7ad3264bcaab92438d14?rik=1bDK3EYRoEiRpw&riu=http%3a%2f%2fclipart-library.com%2fimg%2f862842.png&ehk=C3gXt%2bhb1XM7MhLuicguu8c%2f50hiuWn05ARKueOBp60%3d&risl=&pid=ImgRaw&r=0"
                     alt="Amazon Logo"
                 />
             </Link>
@@ -50,7 +50,7 @@ function Login() {
                 </form>
 
                 <p>
-                    By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please
+                    By signing-in you agree to the SHOPLY Conditions of Use & Sale. Please
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
 

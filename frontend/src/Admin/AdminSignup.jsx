@@ -36,9 +36,11 @@ const AdminSignUp = () => {
             <a href="/">
                 <img
                     className="login__logo"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
+                    src="https://th.bing.com/th/id/R.e116e7eba13c7ad3264bcaab92438d14?rik=1bDK3EYRoEiRpw&riu=http%3a%2f%2fclipart-library.com%2fimg%2f862842.png&ehk=C3gXt%2bhb1XM7MhLuicguu8c%2f50hiuWn05ARKueOBp60%3d&risl=&pid=ImgRaw&r=0
+
+"
                     alt="Amazon Logo"
-                    style={{ width: 120, margin: "30px auto 20px", display: "block" }}
+                    style={{ width: 25, margin: "30px auto 20px", display: "block" }}
                 />
             </a>
             <div className="login__container" style={containerStyle}>
@@ -72,7 +74,7 @@ const AdminSignUp = () => {
                     Login as Admin
                 </button>
                 <p style={{ fontSize: 12, margin: "16px 0" }}>
-                    By creating an admin account you agree to the AMAZON FAKE CLONE Conditions of Use & Sale.
+                    By creating an admin account you agree to the SHOPLY Conditions of Use & Sale.
                 </p>
                 {message && (
                     <div style={{ marginTop: 16, color: message.includes("success") ? "green" : "red", textAlign: "center" }}>
